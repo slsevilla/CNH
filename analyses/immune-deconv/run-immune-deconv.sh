@@ -14,8 +14,8 @@ script_directory="$(perl -e 'use File::Basename;
   print dirname(abs_path(@ARGV[0]));' -- "$0")"
 cd "$script_directory" || exit
 
-### xCell
-# generate deconvolution output
+## xCell
+generate deconvolution output
 echo "Deconvolution xCell..."
 Rscript --vanilla 01-immune-deconv.R \
 --expr_mat '../../data/gene-expression-rsem-tpm-collapsed.rds' \
@@ -31,3 +31,12 @@ Rscript --vanilla 01-immune-deconv.R \
 #--clin_file '../../data/histologies.tsv' \
 #--deconv_method 'quantiseq' \
 #--output_dir 'results'
+
+# # Perform MB Subtype analysis
+# echo "Performing Subtype Analysis..."
+Rscript --vanilla 02-analyze-subtypes.R \
+--expr_mat '../../data/gene-expression-rsem-tpm-collapsed.rds' \
+--clin_file '../../data/histologies.tsv' \
+--deconv_method 'xcell' \
+--molecular_subtype_list 'MB, WNT-MB, SHH-MB, Group3-MB, Group4' \
+--output_dir 'results'
