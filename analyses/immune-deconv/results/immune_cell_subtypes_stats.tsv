@@ -1,0 +1,40 @@
+cell_type	p_value	significant
+B cell	NA	NA
+B cell memory	0.1572992070502857	No
+B cell naive	0.17971249487899973	No
+B cell plasma	0.3457785861511602	No
+Cancer associated fibroblast	0.17971249487899973	No
+Class-switched memory B cell	0.17971249487899973	No
+Common lymphoid progenitor	0.17971249487899973	No
+Common myeloid progenitor	NA	NA
+Endothelial cell	0.17971249487899973	No
+Eosinophil	0.5637028616507738	No
+Granulocyte-monocyte progenitor	0.1572992070502857	No
+Hematopoietic stem cell	0.17971249487899973	No
+Macrophage	0.17971249487899973	No
+Macrophage M1	0.17971249487899973	No
+Macrophage M2	0.3457785861511602	No
+Mast cell	0.6547208460185777	No
+Monocyte	0.08326451666355014	No
+Myeloid dendritic cell	0.1572992070502857	No
+Myeloid dendritic cell activated	0.17971249487899973	No
+NK cell	0.17971249487899973	No
+Neutrophil	0.1572992070502857	No
+Plasmacytoid dendritic cell	0.6547208460185777	No
+T cell CD4+ (non-regulatory)	0.17971249487899973	No
+T cell CD4+ Th1	0.17971249487899973	No
+T cell CD4+ Th2	0.17971249487899973	No
+T cell CD4+ central memory	0.17971249487899973	No
+T cell CD4+ effector memory	0.3457785861511602	No
+T cell CD4+ memory	0.6547208460185777	No
+T cell CD4+ naive	0.1572992070502857	No
+T cell CD8+	0.6373518882339377	No
+T cell CD8+ central memory	0.3457785861511602	No
+T cell CD8+ effector memory	0.6547208460185777	No
+T cell CD8+ naive	0.17971249487899973	No
+T cell NK	0.6547208460185777	No
+T cell gamma delta	0.17971249487899973	No
+T cell regulatory (Tregs)	0.6373518882339377	No
+immune score	0.6547208460185777	No
+microenvironment score	0.6547208460185777	No
+stroma score	0.17971249487899973	No
