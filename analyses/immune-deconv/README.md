@@ -1,11 +1,15 @@
 ## Immune Deconvolution
 
-**Module authors:** Komal S. Rathi ([@komalsrathi](https://github.com/komalsrathi)), updated Kelsey Keith ([@kelseykeith](https://github.com/kelseykeith))
+**Module authors:** Komal S. Rathi ([@komalsrathi](https://github.com/komalsrathi)), updated Kelsey Keith ([@kelseykeith](https://github.com/kelseykeith)), updated by S. Chill ([@slsevilla](https://github.com/slsevilla))
 
 ### Description
 
-The goal of this analysis is to use the R package `immunedeconv` to quantify and compare various immune cell types in the tumor microenvironment (TME) across various cancer and GTEx groups. 
-The package `immunedeconv`, provides the following deconvolution methods: `xCell` (n = 64; immune and non-immune cell types), `CIBERSORT` (relative mode; n = 22 immune cell types); `CIBERSORT (abs.)` (absolute mode; n = 22 immune cell types), `TIMER` (n = 6), `EPIC` (n = 6), `quanTIseq` (n = 10) and `MCP-Counter` (n = 8). 
+This analysis uses the **`immunedeconv`** R package to characterize immune cell populations in tumor samples using RNA-Seq data. The package `immunedeconv`, provides the following deconvolution methods: `xCell` (n = 64; immune and non-immune cell types), `CIBERSORT` (relative mode; n = 22 immune cell types); `CIBERSORT (abs.)` (absolute mode; n = 22 immune cell types), `TIMER` (n = 6), `EPIC` (n = 6), `quanTIseq` (n = 10) and `MCP-Counter` (n = 8). 
+
+The workflow consists of two options:
+
+1. Immune Deconvolution: Estimate immune cell fractions across samples using deconvolution algorithms (`xCell` or `quanTIseq`).  
+2. Medulloblastoma Subtype Analysis: Investigate immune cell distribution differences among user-provided subtypes ( IE. `MB, WNT`, `MB, SHH`) and identify any statistically significant differences.
 
 Both `CIBERSORT` and `CIBERSORT (abs.)` require two files i.e. `LM22.txt` and `CIBERSORT.R`, that are available upon request from https://cibersort.stanford.edu/. Please refer to https://icbi-lab.github.io/immunedeconv/articles/immunedeconv.html#special-case-cibersort for more details. We recommend using `xCell` instead when these files are not available to the user. 
 
@@ -49,9 +53,32 @@ results/{deconv_method}_output.rds
 
 For `xCell`, the results in the rds file are predicted immune scores per cell type per input sample. These scores are not actual cell fractions but arbitrary scores representing enrichment of the cell types which can be compared across various cancer/gtex groups. The `quanTIseq` results, in contrast, provide an absolute score that can be interpreted as a cell fraction and the results in the rds file are the absolute scores per cell type per input sample. Depending on the user requirements, the output can also be used to create various visualizations. 
 
+#### 02-analyze-subtypes.R
+
+1. Inputs from previous script
+This script takes the same inputs as the `01-immune-deconv.R` script, with the additional feature of a subtype_list. This list should match the molecular_subtype column in the provided clincal data, separated by hyphens.
+```
+--expr_mat '../../data/gene-expression-rsem-tpm-collapsed.rds' \
+--clin_file '../../data/histologies.tsv' \
+--deconv_method 'xcell' \
+--molecular_subtype_list 'MB, WNT-MB, SHH-MB, Group3-MB, Group4' \
+--output_dir 'results'
+```
+
+2. Function
+
+Analyze immune cell distribution differences across provided subtypes and detect statistically significant patterns. Briefly it:
+- Filters data for subtypes.  
+- Performs **Kruskal-Wallis tests** for immune cell fractions across subtypes.  
+- Generates visualizations showing immune cell distributions across subtypes.
+
+3. Output: 
+- `results/immune_cell_subtypes_plot.png`: Boxplot visualization of immune cell fractions across subtypes
+- `results/immune_cell_subtypes_stats.tsv`: Statistical significance results per immune cell type
+
 ### Running the analysis
 
-The following script will run the full analysis using either of the two methods of choice: `xCell` or `quanTIseq`. `xCell` is run by default, so to select `quanTIseq`, see code option in chunk below.
+The following script will run the full analysis using either of the two methods of choice: `xCell` or `quanTIseq`. `xCell` is run by default, so to select `quanTIseq`, see code option in chunk below. It will then run the second function, which analyzes mb subtypes, performs statistical analysis and generates visualizations.
 
 ```
 bash run-immune-deconv.sh
